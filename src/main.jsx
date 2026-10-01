@@ -120,7 +120,8 @@ function App() {
 
   const submitCode = (event) => {
     event.preventDefault();
-    if (code.trim().toUpperCase() === "EILEEN2026") {
+    const normalizedCode = code.replace(/\s+/g, "").toLowerCase();
+    if (normalizedCode === "tecielo") {
       setVerified(true);
       window.setTimeout(() => setScreen("finale"), 650);
     }
@@ -282,7 +283,7 @@ function Hub({
             <small>
               {verified
                 ? "Clave aceptada · iniciando secuencia"
-                : "Pista: el nombre de quien lo recibe + el año"}
+                : "Pista: dos palabras, también puedes escribirlas juntas"}
             </small>
             <button className="focus-toggle" type="button" onClick={toggleFocusMode}>
               {focusMode ? "mostrar todo" : "modo enfoque para móvil"}
