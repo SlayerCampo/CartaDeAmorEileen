@@ -215,9 +215,24 @@ function Hub({
   setSelected,
   onBack,
 }) {
+  const [focusMode, setFocusMode] = useState(false)
+
+  const toggleFocusMode = () => {
+    const nextFocusMode = !focusMode
+    setFocusMode(nextFocusMode)
+    if (nextFocusMode) {
+      window.requestAnimationFrame(() => {
+        document.getElementById("secret-code")?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        })
+      })
+    }
+  }
+
   return (
     <motion.section
-      className="screen hub"
+      className={`screen hub ${focusMode ? "focus-mode" : ""}`}
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -40 }}
@@ -269,6 +284,9 @@ function Hub({
                 ? "Clave aceptada · iniciando secuencia"
                 : "Pista: el nombre de quien lo recibe + el año"}
             </small>
+            <button className="focus-toggle" type="button" onClick={toggleFocusMode}>
+              {focusMode ? "mostrar todo" : "modo enfoque para móvil"}
+            </button>
           </form>
         </div>
         <motion.div
